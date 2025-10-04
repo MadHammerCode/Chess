@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Board {
     private Piece[][] _board;
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner _scanner = new Scanner(System.in);
 
     public Board(){
        _board = new Piece[8][8];
@@ -77,18 +77,16 @@ public class Board {
         }else{
             throw new InvalidMoveException("Invalid move!");
         }
-        //To DO
-        // if( Piece.canMove() == true && space is not occupied by friendly piece)
     }
 
     public void playerTurn(){ //handles the player input and checks if its valid
         boolean isValid = false;
         while(!isValid){
             System.out.println("What do you want to move: ");
-            String start = scanner.nextLine();
+            String start = _scanner.nextLine();
 
             System.out.println("Where do you want to move it?: ");
-            String end = scanner.nextLine();
+            String end = _scanner.nextLine();
 
             try { //tries to move the Piece and checks if the input was faulty or not
                 move(start, end);

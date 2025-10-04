@@ -7,11 +7,7 @@ public class Rook extends Piece {
 
     @Override
     public boolean canMove(int[] from, int[] to){
-        if (from[0]==to[0] || from[1]==to[1]){
-            return true;
-        }else{
-            return false;
-        }
+        return (from[0] == to[0] || from[1] == to[1]); // a rook can only move either horizontally or vertically
     }
 
     @Override

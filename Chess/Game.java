@@ -6,5 +6,9 @@ public class Game {
         board.printBoard();
         board.playerTurn();
         board.printBoard();
+        board.playerTurn();
+        board.printBoard();
+
+
     }
 }
