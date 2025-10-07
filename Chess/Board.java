@@ -1,6 +1,7 @@
 package Chess;
 import static Chess.Notation.notationToArray;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Board {
     private Piece[][] _board;
@@ -100,36 +101,31 @@ public class Board {
     public boolean validateMove(int[] startRowAndCol, int[] endRowAndCol, Piece movingPiece){
         if((startRowAndCol!=endRowAndCol) && (movingPiece.canMove(startRowAndCol, endRowAndCol)){
 
+            int[] tempEndRowAndCol = Arrays.copyOf(endRowAndCol, endRowAndCol.length); // creates copies because otherwise the og Arrays get corrupted
+            int[] tempStartRowAndCol = Arrays.copyOf(startRowAndCol, startRowAndCol.length);
+
             if(movingPiece.getSymbol() == 'R' || movingPiece.getSymbol() == 'r'){ //checks the path in the Rooks way
-               int row = endRowAndCol[0]-startRowAndCol[0];
-               int col = endRowAndCol[1]-startRowAndCol[1];
 
-               int i = 1;
-               while(startRowAndCol[0] !=endRowAndCol[0]){ // changes startRowAndCol [0] until its the same as endRowAndCol[0]
-                   if(Math.abs(col)!=i){
 
-                       if(endRowAndCol[0] > startRowAndCol[0]){ // if end is greater than start i.e e4 to e5 then start + i
-                           startRowAndCol[0] = startRowAndCol[0] + i;
+               while(tempStartRowAndCol[0] !=tempEndRowAndCol[0]){ // changes startRowAndCol [0] until its the same as endRowAndCol[0]
 
-                       }else{
-                           startRowAndCol[0] = startRowAndCol[0] - i; // if start is greater than end i.e e5 to e4 then start - i
-                       }
-                       i = i + 1;
+                   if(tempEndRowAndCol[0] > tempStartRowAndCol[0]){ // if end is greater than start i.e e4 to e5 then start + i
+                       tempStartRowAndCol[0] = tempStartRowAndCol[0] + 1;
+
+                   }else{
+                       tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1; // if start is greater than end i.e e5 to e4 then start - i
                    }
                }
-               i = 1;
-               while(startRowAndCol[0] !=endRowAndCol[0]){ // changes startRowAndCol [0] until its the same as endRowAndCol[0]
-                    if(Math.abs(col)!=i){
 
-                        if(endRowAndCol[0] > startRowAndCol[0]){ // if end is greater than start i.e e4 to e5 then start + i
-                            startRowAndCol[0] = startRowAndCol[0] + i;
+                while(tempStartRowAndCol[1] !=tempEndRowAndCol[1]){ // changes startRowAndCol [0] until its the same as endRowAndCol[0]
 
-                        }else{
-                            startRowAndCol[0] = startRowAndCol[0] - i; // if start is greater than end i.e e5 to e4 then start - i
-                        }
-                        i = i + 1;
+                    if(tempEndRowAndCol[1] > tempStartRowAndCol[1]){ // if end is greater than start i.e e4 to e5 then start + i
+                        tempStartRowAndCol[1] = tempStartRowAndCol[1] + 1;
+
+                    }else{
+                        tempStartRowAndCol[1] = tempStartRowAndCol[1] - 1; // if start is greater than end i.e e5 to e4 then start - i
                     }
-               }
+                }
 
 
 
