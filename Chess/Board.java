@@ -61,15 +61,15 @@ public class Board {
         System.out.println("  "+"abcdefgh");
     }
 
-    public void move(String from, String to) throws InvalidMoveException{
+    public void move(String from, String to, Color color) throws InvalidMoveException{
 
         int[] startRowAndCol = notationToArray(from);
         int[] endRowAndCol = notationToArray(to);
 
         Piece movingPiece = _board[startRowAndCol[0]][startRowAndCol[1]]; //temporarily saves the Piece thats about to move
 
-        if(validateMove(startRowAndCol, endRowAndCol, movingPiece)){
-            //checks if the corresponding Piece can move along the chosen path
+        if(validateMove(startRowAndCol, endRowAndCol, movingPiece) && movingPiece.getColor() == color){
+            //checks if the corresponding Piece can move along the chosen path and that the color corresponds with the players
 
                 _board[startRowAndCol[0]][startRowAndCol[1]] = null; // clears the square
 
@@ -79,7 +79,7 @@ public class Board {
         }
     }
 
-    public void playerTurn(){ //handles the player input and checks if its valid
+    public void playerTurn(Color color){ //handles the player input and checks if its valid
         boolean isValid = false;
         while(!isValid){
             System.out.println("What do you want to move: ");
@@ -89,7 +89,7 @@ public class Board {
             String end = _scanner.nextLine();
 
             try { //tries to move the Piece and checks if the input was faulty or not
-                move(start, end);
+                move(start, end, color);
                 isValid=true;
             }catch(InvalidMoveException e){ //if input is faulty then it goes on until a correct move was made
                 System.out.println(e + "Try Again!");
