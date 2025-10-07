@@ -11,10 +11,6 @@ public  abstract class Piece {
         return _color;
     }
 
-    public Piece getPiece(Piece piece){
-        return piece;
-    }
-
     public abstract char getSymbol();
 
     public abstract boolean canMove(int[] from, int[] to);
