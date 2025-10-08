@@ -99,118 +99,40 @@ public class Board {
     }
 
     public boolean validateMove(int[] startRowAndCol, int[] endRowAndCol, Piece movingPiece) {
-        if ((startRowAndCol != endRowAndCol) && (movingPiece.canMove(startRowAndCol, endRowAndCol))) {
-
-            int[] tempEndRowAndCol = Arrays.copyOf(endRowAndCol, endRowAndCol.length); // creates copies because otherwise the og Arrays get corrupted
-            int[] tempStartRowAndCol = Arrays.copyOf(startRowAndCol, startRowAndCol.length);
-
-            if (movingPiece.getSymbol() == 'R' || movingPiece.getSymbol() == 'r') { //checks the path in the Rooks way
-
-
-                while (tempStartRowAndCol[0] != tempEndRowAndCol[0]) { // changes startRowAndCol [0] until its the same as endRowAndCol[0]
-
-                    if (tempEndRowAndCol[0] > tempStartRowAndCol[0]) { // if end is greater than start i.e e4 to e5 then start + i
-                        tempStartRowAndCol[0] = tempStartRowAndCol[0] + 1;
-
-                    } else {
-                        tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1; // if start is greater than end i.e e5 to e4 then start - i
-                    }
-                    if ((_board[tempStartRowAndCol[0]][tempStartRowAndCol[1]]) != null) { // I have to access board because only it possesses Piece objects,
-                        return false;
-                    }
-                }
-
-                while (tempStartRowAndCol[1] != tempEndRowAndCol[1]) { // changes startRowAndCol [0] until its the same as endRowAndCol[0]
-
-                    if (tempEndRowAndCol[1] > tempStartRowAndCol[1]) { // if end is greater than start i.e e4 to e5 then start + i
-                        tempStartRowAndCol[1] = tempStartRowAndCol[1] + 1;
-
-                    } else {
-                        tempStartRowAndCol[1] = tempStartRowAndCol[1] - 1; // if start is greater than end i.e e5 to e4 then start - i
-                    }
-                    if ((_board[tempStartRowAndCol[0]][tempStartRowAndCol[1]]) != null) { // I have to access board because only it possesses Piece objects,
-                        return false;
-                    }
-                }
-
-
-            } else if (movingPiece.getSymbol() == 'B' || movingPiece.getSymbol() == 'b') {//checks the path in the Bishops way
-
-                while (!Arrays.equals(tempStartRowAndCol, tempEndRowAndCol)) { //basically the same as == but you cnt correctly compare 2 Arrays
-
-                    if (tempStartRowAndCol[0] < tempEndRowAndCol[0]) {
-                        tempStartRowAndCol[0] = tempStartRowAndCol[0] + 1;
-                    } else {
-                        tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1;
-                    }
-
-                    if (tempStartRowAndCol[1] < tempEndRowAndCol[1]) {
-                        tempStartRowAndCol[1] = tempStartRowAndCol[1] + 1;
-                    } else {
-                        tempStartRowAndCol[1] = tempStartRowAndCol[1] - 1;
-                    }
-
-                    if ((_board[tempStartRowAndCol[0]][tempStartRowAndCol[1]]) != null) { // I have to access board because only it possesses Piece objects,
-                        return false;
-                    }
-                }
-
-
-            } else if (movingPiece.getSymbol() == 'Q' || movingPiece.getSymbol() == 'q') {//checks the path in the Queens way
-
-                if ((tempStartRowAndCol[0] == tempEndRowAndCol[0]) || tempStartRowAndCol[1] == tempEndRowAndCol[1]) {
-
-                    while (!Arrays.equals(tempStartRowAndCol, tempEndRowAndCol)) { // changes startRowAndCol [0] until its the same as endRowAndCol[0]
-
-                        if (tempEndRowAndCol[0] > tempStartRowAndCol[0]) { // if end is greater than start i.e e4 to e5 then start + i
-                            tempStartRowAndCol[0] = tempStartRowAndCol[0] + 1;
-
-                        } else {
-                            tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1; // if start is greater than end i.e e5 to e4 then start - i
-                        }
-                        if ((_board[tempStartRowAndCol[0]][tempStartRowAndCol[1]]) != null) { // I have to access board because only it possesses Piece objects,
-                            return false;
-                        }
-                    }
-
-                    while (tempStartRowAndCol[1] != tempEndRowAndCol[1]) { // changes startRowAndCol [0] until its the same as endRowAndCol[0]
-
-                        if (tempEndRowAndCol[1] > tempStartRowAndCol[1]) { // if end is greater than start i.e e4 to e5 then start + i
-                            tempStartRowAndCol[1] = tempStartRowAndCol[1] + 1;
-
-                        } else {
-                            tempStartRowAndCol[1] = tempStartRowAndCol[1] - 1; // if start is greater than end i.e e5 to e4 then start - i
-                        }
-                        if ((_board[tempStartRowAndCol[0]][tempStartRowAndCol[1]]) != null) { // I have to access board because only it possesses Piece objects,
-                            return false;
-                        }
-                    }
-                } else {
-
-                    while (!Arrays.equals(tempStartRowAndCol, tempEndRowAndCol)) {
-
-                        if (tempStartRowAndCol[0] < tempEndRowAndCol[0]) {
-                            tempStartRowAndCol[0] = tempStartRowAndCol[0] + 1;
-                        } else {
-                            tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1;
-                        }
-
-                        if (tempStartRowAndCol[1] < tempEndRowAndCol[1]) {
-                            tempStartRowAndCol[1] = tempStartRowAndCol[1] + 1;
-                        } else {
-                            tempStartRowAndCol[1] = tempStartRowAndCol[1] - 1;
-                        }
-
-                        if ((_board[tempStartRowAndCol[0]][tempStartRowAndCol[1]]) != null) { // I have to access board because only it possesses Piece objects,
-                            return false;
-                        }
-                    }
-                }
-            }
+        if (movingPiece.getSymbol() == 'N' || movingPiece.getSymbol() == 'n') {
+            return ((startRowAndCol != endRowAndCol) && (movingPiece.canMove(startRowAndCol, endRowAndCol)));
+        }else{
+            return ((startRowAndCol != endRowAndCol) && (movingPiece.canMove(startRowAndCol, endRowAndCol)) && checkPathClear(startRowAndCol, endRowAndCol));
         }
-        return movingPiece.canMove(startRowAndCol, endRowAndCol); //if I just return true then every move is true, even potentially illegal ones
     }
 
-    // TO DO
-    // checkPathClear method so I can avoid code dupe
+    public boolean checkPathClear(int[] startRowAndCol, int[] endRowAndCol) {
+        int[] tempEndRowAndCol = Arrays.copyOf(endRowAndCol, endRowAndCol.length); // creates copies because otherwise the og Arrays get corrupted
+        int[] tempStartRowAndCol = Arrays.copyOf(startRowAndCol, startRowAndCol.length);
+
+        while (!Arrays.equals(tempStartRowAndCol, tempEndRowAndCol)) {
+            // I have to compare Arrays like that otherwise this condition will always be true because with "==" it would compare references and not content
+
+
+            if (tempStartRowAndCol[0] < tempEndRowAndCol[0]) { // if start is smaller than end i.e e4 to e5 then start + 1
+                tempStartRowAndCol[0] = tempStartRowAndCol[0] + 1;
+            }
+            if (tempStartRowAndCol[0] > tempEndRowAndCol[0]){
+                tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1; // if start is greater than end i.e e5 to e4 then start - i
+            }
+
+            if (tempStartRowAndCol[1] < tempEndRowAndCol[1]) {
+                tempStartRowAndCol[1] = tempStartRowAndCol[1] + 1;
+            }
+            if(tempStartRowAndCol[1] > tempEndRowAndCol[1]){
+                tempStartRowAndCol[1] = tempStartRowAndCol[1] - 1;
+            }
+
+            //I check if the current square is occupied or not
+            if (((_board[tempStartRowAndCol[0]][tempStartRowAndCol[1]]) != null) && !Arrays.equals(tempStartRowAndCol, tempEndRowAndCol)) { // I have to access board because only it possesses Piece objects,
+                return false;
+            }
+        }
+        return true;
+    }
 }
