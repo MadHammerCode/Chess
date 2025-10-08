@@ -6,7 +6,13 @@ public class Game {
         board.printBoard();
         board.playerTurn(Color.WHITE);
         board.printBoard();
-        board.playerTurn(Color.BLACK);
+        board.playerTurn(Color.WHITE);
+        board.printBoard();
+        board.playerTurn(Color.WHITE);
+        board.printBoard();
+        board.playerTurn(Color.WHITE);
+        board.printBoard();
+        board.playerTurn(Color.WHITE);
         board.printBoard();
 
 
