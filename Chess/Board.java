@@ -12,6 +12,18 @@ public class Board {
         setUpBoard();
     }
 
+    public Piece getPiece(int row, int col){
+        return _board[row][col];
+    }
+
+    public boolean checkTeamMate(Piece movingPiece, int row, int col){
+        if(_board[row][col] != null){
+            return(movingPiece.getColor() != _board[row][col].getColor());
+        }else{
+            return true;
+        }
+    }
+
     private void setUpBoard() {
         Piece[] whiteBackRank = new Piece[]{
                 new Rook(Color.WHITE), new Knight(Color.WHITE),
@@ -69,13 +81,20 @@ public class Board {
 
         Piece movingPiece = _board[startRowAndCol[0]][startRowAndCol[1]]; //temporarily saves the Piece thats about to move
 
-        if (validateMove(startRowAndCol, endRowAndCol, movingPiece) && movingPiece.getColor() == color) {
+        if (validateMove(startRowAndCol, endRowAndCol, movingPiece) && (movingPiece.getColor() == color)  && (checkTeamMate(movingPiece, endRowAndCol[0], endRowAndCol[1]))){
             //checks if the corresponding Piece can move along the chosen path and that the color corresponds with the players
+
+            //In case the Piece to be moved is a pawn, the take logic has to be a bit different.
+            if (movingPiece.getSymbol() == 'P' || movingPiece.getSymbol() == 'p'){
+                if (_board[endRowAndCol[0]][endRowAndCol[1]] != null){
+                    throw new InvalidMoveException("Invalid move!");
+                }
+            }
 
             _board[startRowAndCol[0]][startRowAndCol[1]] = null; // clears the square
 
             _board[endRowAndCol[0]][endRowAndCol[1]] = movingPiece; // places the Piece at its new location
-        } else {
+        }else{
             throw new InvalidMoveException("Invalid move!");
         }
     }
@@ -114,11 +133,11 @@ public class Board {
             // I have to compare Arrays like that otherwise this condition will always be true because with "==" it would compare references and not content
 
 
-            if (tempStartRowAndCol[0] < tempEndRowAndCol[0]) { // if start is smaller than end i.e e4 to e5 then start + 1
+            if (tempStartRowAndCol[0] < tempEndRowAndCol[0]) { // if start is smaller than end i.e. e4 to e5 then start + 1
                 tempStartRowAndCol[0] = tempStartRowAndCol[0] + 1;
             }
             if (tempStartRowAndCol[0] > tempEndRowAndCol[0]){
-                tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1; // if start is greater than end i.e e5 to e4 then start - i
+                tempStartRowAndCol[0] = tempStartRowAndCol[0] - 1; // if start is greater than end i.e. e5 to e4 then start - 1
             }
 
             if (tempStartRowAndCol[1] < tempEndRowAndCol[1]) {

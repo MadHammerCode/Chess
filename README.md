@@ -7,6 +7,16 @@ To Do:
 
 -fix bug when using chars out of the a-h range where it just ignores this and moves the piece only along the different rows
 
--if( Piece.canMove() == true && space is not occupied by friendly piece)
+-general check logic
 
--make distinction between black and white player //DONE
+-checkMate logic
+
+-En passant
+
+-Promotion
+
+-Stalemate
+
+
+-write isChecked() in King class, give the King the same "movement" as Queen and Knight and check if theres a piece in its vision
+//credits: David F.

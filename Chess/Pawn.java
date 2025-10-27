@@ -1,16 +1,22 @@
 package Chess;
 
 public class Pawn extends Piece {
-    private boolean _isVirgin;
+    private boolean _isFirstMove;
 
     public Pawn(Color color){
         super(color);
-        _isVirgin = true;
+        _isFirstMove = true;
     }
 
     @Override
     public boolean canMove(int[] from, int[] to){
-        return false;
+        if(_isFirstMove) {
+            _isFirstMove = false;
+            return (((from[0] == to[0]+1) || (from[0] == to[0]+2)) && from[1] == to[1]) ;
+
+        }else {
+            return ((from[0] == to[0] + 1) && from[1] == to[1]);
+        }
     }
 
     @Override
