@@ -3,6 +3,8 @@ package Chess;
 public class Bishop extends Piece{
     public Bishop(Color color){
         super(color);
+        _directions= new int[][]{{1,1}, {-1,-1}, {1,-1}, {-1,1} };
+        _unlimitedRange=true;
     }
 
     @Override

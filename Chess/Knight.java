@@ -3,6 +3,7 @@ package Chess;
 public class Knight extends Piece{
     public Knight(Color color){
         super(color);
+        _directions = new int[][] {{2,1}, {2,-1}, {1,2}, {1,-2}, {-2,1}, {-1,2}, {-2,-1}, {-1,-2}};
     }
 
     @Override

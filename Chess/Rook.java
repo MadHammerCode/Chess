@@ -3,6 +3,8 @@ package Chess;
 public class Rook extends Piece {
     public Rook(Color color){
         super(color);
+        _directions= new int[][]{{1,0}, {0,1}, {-1,0}, {0,-1} };
+        _unlimitedRange=true;
     }
 
     @Override

@@ -3,6 +3,8 @@ package Chess;
 public class King extends Piece {
     public King(Color color) {
         super(color);
+        _directions= new int[][]{{1,0}, {1,1}, {0,1}, {-1,0}, {-1,-1}, {0,-1}, {1,-1}, {-1,1}};
+        _unlimitedRange=false;
     }
 
     @Override

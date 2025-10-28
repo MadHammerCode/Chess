@@ -1,5 +1,7 @@
 package Chess;
 import static Chess.Notation.notationToArray;
+
+import java.util.List;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -153,5 +155,14 @@ public class Board {
             }
         }
         return true;
+    }
+
+    public List<List<Integer>> generateMoves(int[] startRowAndCol, Piece movingPiece){ // Im using an ArrayList because they can dynamically grow
+        int[] tempStartRowAndCol = Arrays.copyOf(startRowAndCol, startRowAndCol.length);
+
+        for(int[] dir: movingPiece.getDirections() ){
+            int row = dir[0];
+            int col = dir[1];
+        }
     }
 }
